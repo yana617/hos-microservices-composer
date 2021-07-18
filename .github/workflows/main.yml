@@ -24,4 +24,4 @@ jobs:
           cd /home/hos-microservices-composer/hos-service
           git pull origin master
           cd /home/hos-microservices-composer
-          docker compose up --build
+          docker-compose up --build
