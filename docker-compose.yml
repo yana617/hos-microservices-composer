@@ -5,7 +5,7 @@ services:
       context: ./auth-service
       dockerfile: dockerfile
     volumes:
-      - ./:/usr/src/auth-service
+      - ./auth-service/:/usr/src/auth-service
       - /usr/src/auth-service/node_modules
     ports:
       - "1081:1081"
@@ -15,7 +15,7 @@ services:
       context: ./hos-service
       dockerfile: dockerfile
     volumes:
-      - ./:/usr/src/hos-service
+      - ./hos-service:/usr/src/hos-service
       - /usr/src/hos-service/node_modules
     ports:
       - "1082:1082"
