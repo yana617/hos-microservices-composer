@@ -9,6 +9,7 @@ services:
       - /usr/src/auth-service/node_modules
     ports:
       - "1081:1081"
+    working_dir: /usr/src/auth-service
   hos-service:
     build:
       context: ./hos-service
@@ -18,3 +19,4 @@ services:
       - /usr/src/hos-service/node_modules
     ports:
       - "1082:1082"
+    working_dir: /usr/src/hos-service
