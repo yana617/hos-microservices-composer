@@ -2,8 +2,8 @@ version: "3.3"
 services:
   auth-service:
     build:
-      context: .
-      dockerfile: auth-service/dockerfile
+      context: ./auth-service
+      dockerfile: dockerfile
     volumes:
       - ./:/usr/src/auth-serive
       - /usr/src/auth-serive/node_modules
@@ -11,8 +11,8 @@ services:
       - "1081:1081"
   hos-service:
     build:
-      context: .
-      dockerfile: hos-service/dockerfile
+      context: ./hos-service
+      dockerfile: dockerfile
     volumes:
       - ./:/usr/src/hos-serive
       - /usr/src/hos-serive/node_modules
