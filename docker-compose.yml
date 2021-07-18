@@ -1,0 +1,20 @@
+version: "3.9"
+services:
+  auth-service:
+    build:
+      context: .
+      dockerfile: auth-service/dockerfile
+    volumes:
+      - ./:/usr/src/auth-serive
+      - /usr/src/auth-serive/node_modules
+    ports:
+      - "1081:1081"
+  hos-service:
+    build:
+      context: .
+      dockerfile: hos-service/dockerfile
+    volumes:
+      - ./:/usr/src/hos-serive
+      - /usr/src/hos-serive/node_modules
+    ports:
+      - "1082:1082"
