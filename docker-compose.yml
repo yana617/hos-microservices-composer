@@ -10,6 +10,20 @@ services:
     ports:
       - "1081:1081"
     working_dir: /usr/src/auth-service
+    depends_on: 
+      - postgres-db
+    env_file:
+     - ./auth-service/.env
+
+  postgres-db:
+    image: postgres:12.3-alpine
+    volumes:
+      - postgres-app-data:/data
+    ports:
+      - "5432:5432"
+    env_file:
+     - ./auth-service/.env
+
   hos-service:
     build:
       context: ./hos-service
@@ -20,3 +34,18 @@ services:
     ports:
       - "1082:1082"
     working_dir: /usr/src/hos-service
+    links:
+      - mongo-db
+    env_file:
+     - ./hos-service/.env
+
+  mongo-db:
+    image: mongo
+    ports:
+      - "27018:27017"
+    container_name: mongo-db
+    volumes:
+      - ./hos-service/db/:/data/db
+
+volumes:
+  postgres-app-data:
