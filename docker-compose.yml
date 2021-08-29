@@ -46,6 +46,7 @@ services:
     container_name: mongo-db
     volumes:
       - ./hos-service/db/:/data/db
+    command: mongod --quiet --logpath /dev/null 
 
 volumes:
   postgres-app-data:
