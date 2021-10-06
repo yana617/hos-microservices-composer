@@ -18,7 +18,10 @@ jobs:
         username: ${{ secrets.SSH_USERNAME }}
         password: ${{ secrets.SSH_PASSWORD }}
         script: |
-          docker-compose down
+          docker-compose stop auth-service
+          docker-compose stop hos-service
+          docker-compose rm auth-service
+          docker-compose rm hos-service
           cd /home/hos-microservices-composer
           git pull origin master
           cd /home/hos-microservices-composer/auth-service

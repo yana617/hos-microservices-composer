@@ -1,6 +1,7 @@
 version: "3.3"
 services:
   auth-service:
+    container_name: auth-service
     build:
       context: ./auth-service
       dockerfile: dockerfile
@@ -16,6 +17,7 @@ services:
      - ./auth-service/.env
 
   postgres-db:
+    container_name: postgres-db
     image: postgres:12.3-alpine
     volumes:
       - postgres-app-data:/data
@@ -25,6 +27,7 @@ services:
      - ./auth-service/.env
 
   hos-service:
+    container_name: hos-service
     build:
       context: ./hos-service
       dockerfile: dockerfile
@@ -40,10 +43,10 @@ services:
      - ./hos-service/.env
 
   mongo-db:
+    container_name: mongo-db
     image: mongo
     ports:
       - "27018:27017"
-    container_name: mongo-db
     volumes:
       - ./hos-service/db/:/data/db
     command: mongod --quiet --logpath /dev/null 
