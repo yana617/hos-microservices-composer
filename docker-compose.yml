@@ -14,7 +14,9 @@ services:
     depends_on: 
       - postgres-db
     env_file:
-     - ./auth-service/.env
+      - ./auth-service/.env
+    networks:
+      - mynet
 
   postgres-db:
     container_name: postgres-db
@@ -24,7 +26,9 @@ services:
     ports:
       - "5433:5432"
     env_file:
-     - ./auth-service/.env
+      - ./auth-service/.env
+    networks:
+      - mynet
 
   hos-service:
     container_name: hos-service
@@ -40,7 +44,9 @@ services:
     links:
       - mongo-db
     env_file:
-     - ./hos-service/.env
+      - ./hos-service/.env
+    networks:
+      - mynet
 
   mongo-db:
     container_name: mongo-db
@@ -50,6 +56,13 @@ services:
     volumes:
       - ./hos-service/db/:/data/db
     command: mongod --quiet --logpath /dev/null 
+    networks:
+      - mynet
 
 volumes:
   postgres-app-data:
+networks:
+  mynet:
+    driver: bridge
+    ipam:
+      driver: default
