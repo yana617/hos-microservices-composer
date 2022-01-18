@@ -1,0 +1,68 @@
+version: "3.3"
+services:
+  auth-service-dev:
+    container_name: auth-service-dev
+    build:
+      context: ./auth-service
+      dockerfile: dockerfile
+    volumes:
+      - ./auth-service/:/usr/src/auth-service
+      - /usr/src/auth-service/node_modules
+    ports:
+      - "3081:3081"
+    working_dir: /usr/src/auth-service
+    depends_on: 
+      - postgres-db-dev
+    env_file:
+      - ./auth-service/.env
+    networks:
+      - mynet-dev
+
+  postgres-db-dev:
+    container_name: postgres-db-dev
+    image: postgres:12.3-alpine
+    volumes:
+      - postgres-app-data:/data
+    ports:
+      - "5433:5432"
+    env_file:
+      - ./auth-service/.env
+    networks:
+      - mynet-dev
+
+  hos-service-dev:
+    container_name: hos-service-dev
+    build:
+      context: ./hos-service
+      dockerfile: dockerfile
+    volumes:
+      - ./hos-service:/usr/src/hos-service
+      - /usr/src/hos-service/node_modules
+    ports:
+      - "3082:3082"
+    working_dir: /usr/src/hos-service
+    links:
+      - mongo-db
+    env_file:
+      - ./hos-service/.env
+    networks:
+      - mynet-dev
+
+  mongo-db-dev:
+    container_name: mongo-db-dev
+    image: mongo
+    ports:
+      - "27018:27017"
+    volumes:
+      - ./hos-service/db/:/data/db
+    command: mongod --quiet --logpath /dev/null 
+    networks:
+      - mynet-dev
+
+volumes:
+  postgres-app-data-dev:
+networks:
+  mynet-dev:
+    driver: bridge
+    ipam:
+      driver: default

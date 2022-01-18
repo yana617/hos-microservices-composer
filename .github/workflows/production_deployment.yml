@@ -1,15 +1,12 @@
-name: CI-CD
+name: Production Deployment
 
 on:
-  push:
-    branches: [ master ]
-  pull_request:
-    branches: [ master ]
   workflow_dispatch:
-  
+
 jobs:
-  build:
+  deployment:
     runs-on: ubuntu-latest
+    environment: production
     steps:
     - name: Executing remote ssh commands
       uses: appleboy/ssh-action@master

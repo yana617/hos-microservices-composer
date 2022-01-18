@@ -1,0 +1,29 @@
+name: Development Deployment
+
+on:
+  workflow_dispatch:
+
+jobs:
+  deployment:
+    runs-on: ubuntu-latest
+    environment: development
+    steps:
+    - name: Executing remote ssh commands
+      uses: appleboy/ssh-action@master
+      with:
+        host: ${{ secrets.SSH_HOST }}
+        username: ${{ secrets.SSH_USERNAME }}
+        password: ${{ secrets.SSH_PASSWORD }}
+        script: |
+          docker-compose stop auth-service-dev
+          docker-compose stop hos-service-dev
+          docker-compose rm auth-service-dev
+          docker-compose rm hos-service-dev
+          cd /home/hos-dev-backend
+          git pull origin master
+          cd /home/hos-dev-backend/auth-service
+          git pull origin master
+          cd /home/hos-dev-backend/hos-service
+          git pull origin master
+          cd /home/hos-dev-backend
+          docker-compose -f docker-compose.development.yaml up --build -d
