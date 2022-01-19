@@ -1,3 +1,4 @@
 auth-service/
 hos-service/
 docker-compose-home.yaml
+.env

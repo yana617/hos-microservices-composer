@@ -22,9 +22,9 @@ services:
     container_name: postgres-db-dev
     image: postgres:12.3-alpine
     volumes:
-      - postgres-app-data:/data
+      - postgres-app-data-dev:/data
     ports:
-      - "5433:5432"
+      - "5434:5432"
     env_file:
       - ./auth-service/.env
     networks:
@@ -42,7 +42,7 @@ services:
       - "3082:3082"
     working_dir: /usr/src/hos-service
     links:
-      - mongo-db
+      - mongo-db-dev
     env_file:
       - ./hos-service/.env
     networks:
@@ -52,7 +52,7 @@ services:
     container_name: mongo-db-dev
     image: mongo
     ports:
-      - "27018:27017"
+      - "27019:27017"
     volumes:
       - ./hos-service/db/:/data/db
     command: mongod --quiet --logpath /dev/null 
