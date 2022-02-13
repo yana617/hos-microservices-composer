@@ -22,8 +22,8 @@ jobs:
           cd /home/hos-dev-backend
           git pull origin master
           cd /home/hos-dev-backend/auth-service
-          git pull origin master
+          git pull origin development
           cd /home/hos-dev-backend/hos-service
-          git pull origin master
+          git pull origin development
           cd /home/hos-dev-backend
           docker-compose -f docker-compose.development.yml up --build -d
