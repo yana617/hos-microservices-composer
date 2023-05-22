@@ -19,7 +19,7 @@ jobs:
           docker-compose stop hos-service
           docker-compose rm auth-service
           docker-compose rm hos-service
-          cd repos/hos-microservices-composer
+          cd ${{ secrets.REPO_PATH }}
           git pull origin master
           cd auth-service
           git pull origin master
