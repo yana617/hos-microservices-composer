@@ -1,0 +1,29 @@
+name: Production V2 Deployment
+
+on:
+  workflow_dispatch:
+
+jobs:
+  deployment:
+    runs-on: ubuntu-latest
+    environment: production
+    steps:
+    - name: Executing remote ssh commands
+      uses: appleboy/ssh-action@master
+      with:
+        host: ${{ secrets.SSH_HOST_V2 }}
+        username: ${{ secrets.SSH_USERNAME_V2 }}
+        password: ${{ secrets.SSH_PASSWORD_V2 }}
+        script: |
+          docker-compose stop auth-service
+          docker-compose stop hos-service
+          docker-compose rm auth-service
+          docker-compose rm hos-service
+          cd repos/hos-microservices-composer
+          git pull origin master
+          cd auth-service
+          git pull origin master
+          cd ../hos-service
+          git pull origin master
+          cd ..
+          docker-compose up --build -d
