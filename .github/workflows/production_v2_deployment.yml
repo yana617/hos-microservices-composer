@@ -13,7 +13,7 @@ jobs:
       with:
         host: ${{ secrets.SSH_HOST_V2 }}
         username: ${{ secrets.SSH_USERNAME_V2 }}
-        password: ${{ secrets.SSH_PASSWORD_V2 }}
+        key: ${{ secrets.SSH_KEY_V2 }}
         script: |
           docker-compose stop auth-service
           docker-compose stop hos-service
