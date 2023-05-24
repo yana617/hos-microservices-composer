@@ -18,8 +18,8 @@ jobs:
           cd ${{ secrets.REPO_PATH }}
           docker-compose stop auth-service
           docker-compose stop hos-service
-          docker-compose rm auth-service
-          docker-compose rm hos-service
+          docker compose rm auth-service -f
+          docker compose rm hos-service -f
           git pull origin master
           cd auth-service
           git pull origin master
