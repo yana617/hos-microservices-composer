@@ -15,11 +15,11 @@ jobs:
         username: ${{ secrets.SSH_USERNAME_V2 }}
         key: ${{ secrets.SSH_KEY_V2 }}
         script: |
+          cd ${{ secrets.REPO_PATH }}
           docker-compose stop auth-service
           docker-compose stop hos-service
           docker-compose rm auth-service
           docker-compose rm hos-service
-          cd ${{ secrets.REPO_PATH }}
           git pull origin master
           cd auth-service
           git pull origin master
