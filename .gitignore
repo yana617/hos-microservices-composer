@@ -3,3 +3,4 @@ hos-service/
 docker-compose-home.yaml
 .env
 .DS_store
+.vscode/
