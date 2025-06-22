@@ -13,7 +13,7 @@ services:
       - ./auth-service/:/usr/src/auth-service
       - /usr/src/auth-service/node_modules
     ports:
-      - "3081:3081"
+      - "3081:1081"
     working_dir: /usr/src/auth-service
     depends_on: 
       - postgres-db-dev
@@ -31,7 +31,7 @@ services:
       - ./hos-service:/usr/src/hos-service
       - /usr/src/hos-service/node_modules
     ports:
-      - "3082:3082"
+      - "3082:1082"
     working_dir: /usr/src/hos-service
     links:
       - mongo-db-dev
@@ -49,7 +49,7 @@ services:
       - ./animal-service:/usr/src/animal-service
       - /usr/src/animal-service/node_modules
     ports:
-      - "3083:3083"
+      - "3083:1083"
     working_dir: /usr/src/animal-service
     links:
       - postgres-animal-dev
