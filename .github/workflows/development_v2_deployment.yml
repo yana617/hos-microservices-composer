@@ -15,6 +15,7 @@ jobs:
         username: ${{ secrets.SSH_USERNAME }}
         password: ${{ secrets.SSH_PASSWORD }}
         script: |
+          echo ${{secrets.REPO_DEV_PATH}}
           cd ${{ secrets.REPO_DEV_PATH }}
           docker-compose stop auth-service-dev
           docker-compose stop hos-service-dev
