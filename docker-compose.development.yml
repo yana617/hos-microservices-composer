@@ -1,5 +1,9 @@
 version: "3.3"
 services:
+  # ========================
+  # Микросервисы
+  # ========================
+
   auth-service-dev:
     container_name: auth-service-dev
     build:
@@ -13,18 +17,6 @@ services:
     working_dir: /usr/src/auth-service
     depends_on: 
       - postgres-db-dev
-    env_file:
-      - ./auth-service/.env
-    networks:
-      - mynet-dev
-
-  postgres-db-dev:
-    container_name: postgres-db-dev
-    image: postgres:12.3-alpine
-    volumes:
-      - postgres-app-data-dev:/data
-    ports:
-      - "5434:5432"
     env_file:
       - ./auth-service/.env
     networks:
@@ -48,11 +40,51 @@ services:
     networks:
       - mynet-dev
 
+  animal-service-dev:
+    container_name: animal-service-dev
+    build:
+      context: ./animal-service
+      dockerfile: dockerfile
+    volumes:
+      - ./animal-service:/usr/src/animal-service
+      - /usr/src/animal-service/node_modules
+    ports:
+      - "3083:3083"
+    working_dir: /usr/src/animal-service
+    links:
+      - postgres-db-animal-service
+    env_file:
+      - ./animal-service/.env
+    networks:
+      - mynet-dev
+
+  # ========================
+  # Базы данных
+  # ========================
+
+  postgres-db-dev:
+    container_name: postgres-db-dev
+    image: postgres:12.3-alpine
+    volumes:
+      - postgres-app-data-dev:/data
+    env_file:
+      - ./auth-service/.env
+    networks:
+      - mynet-dev
+
+  postgres-animal-dev:
+    container_name: postgres-animal-dev
+    image: postgres:14
+    env_file:
+      - ./animal-service/.env
+    networks:
+      - mynet-dev
+    volumes:
+      - animal_pg_data-dev:/var/lib/postgresql/data
+
   mongo-db-dev:
     container_name: mongo-db-dev
     image: mongo
-    ports:
-      - "27019:27017"
     volumes:
       - ./hos-service/db/:/data/db
     command: mongod --quiet --logpath /dev/null 
@@ -61,6 +93,7 @@ services:
 
 volumes:
   postgres-app-data-dev:
+  animal_pg_data-dev:
 networks:
   mynet-dev:
     driver: bridge

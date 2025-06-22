@@ -1,0 +1,33 @@
+name: Development V2 Deployment [with animals]
+
+on:
+  workflow_dispatch:
+
+jobs:
+  deployment:
+    runs-on: ubuntu-latest
+    environment: development
+    steps:
+    - name: Executing remote ssh commands
+      uses: appleboy/ssh-action@master
+      with:
+        host: ${{ secrets.SSH_HOST }}
+        username: ${{ secrets.SSH_USERNAME }}
+        password: ${{ secrets.SSH_PASSWORD }}
+        script: |
+          cd ${{ secrets.REPO_DEV_PATH }}
+          docker-compose stop auth-service-dev
+          docker-compose stop hos-service-dev
+          docker-compose stop animal-service-dev
+          docker-compose rm auth-service-dev
+          docker-compose rm hos-service-dev
+          docker-compose rm animal-service-dev
+          git pull origin master
+          cd auth-service
+          git pull origin development
+          cd ../hos-service
+          git pull origin development
+          cd ../animal-service
+          git pull origin development
+          cd ..
+          docker-compose -f docker-compose.development.yml up --build -d
