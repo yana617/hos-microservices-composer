@@ -18,7 +18,7 @@ services:
     depends_on: 
       - postgres-db-dev
     env_file:
-      - ./auth-service/.env
+      - ./auth-service/.env.dev
     networks:
       - mynet-dev
 
@@ -36,7 +36,7 @@ services:
     links:
       - mongo-db-dev
     env_file:
-      - ./hos-service/.env
+      - ./hos-service/.env.dev
     networks:
       - mynet-dev
 
@@ -54,7 +54,7 @@ services:
     links:
       - postgres-animal-dev
     env_file:
-      - ./animal-service/.env
+      - ./animal-service/.env.dev
     networks:
       - mynet-dev
 
@@ -68,7 +68,7 @@ services:
     volumes:
       - postgres-app-data-dev:/data
     env_file:
-      - ./auth-service/.env
+      - ./auth-service/.env.dev
     networks:
       - mynet-dev
 
@@ -76,7 +76,7 @@ services:
     container_name: postgres-animal-dev
     image: postgres:14
     env_file:
-      - ./animal-service/.env
+      - ./animal-service/.env.dev
     networks:
       - mynet-dev
     volumes:
@@ -88,6 +88,8 @@ services:
     volumes:
       - ./hos-service/db/:/data/db
     command: mongod --quiet --logpath /dev/null 
+    env_file:
+      - ./hos-service/.env.dev
     networks:
       - mynet-dev
 
