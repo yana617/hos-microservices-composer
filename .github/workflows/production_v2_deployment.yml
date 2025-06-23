@@ -22,8 +22,10 @@ jobs:
           docker compose rm hos-service -f
           git pull origin master
           cd auth-service
+          git checkout master
           git pull origin master
           cd ../hos-service
+          git checkout master
           git pull origin master
           cd ..
           docker-compose up --build -d

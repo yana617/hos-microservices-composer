@@ -24,10 +24,13 @@ jobs:
           docker-compose rm animal-service-dev
           git pull origin master
           cd auth-service
+          git checkout development
           git pull origin development
           cd ../hos-service
+          git checkout development
           git pull origin development
           cd ../animal-service
+          git checkout development
           git pull origin development
           cd ..
           docker-compose -f docker-compose.development.yml up --build -d
