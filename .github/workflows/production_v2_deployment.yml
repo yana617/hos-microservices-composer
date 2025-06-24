@@ -28,4 +28,4 @@ jobs:
           git checkout master
           git pull origin master
           cd ..
-          docker-compose up --build -d
+          docker compose up --build -d
