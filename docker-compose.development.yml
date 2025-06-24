@@ -1,5 +1,8 @@
 version: "3.3"
 services:
+  all:
+    restart: unless-stopped
+
   # ========================
   # Микросервисы
   # ========================
@@ -21,6 +24,11 @@ services:
       - ./auth-service/.env.dev
     networks:
       - mynet-dev
+    deploy:
+      resources:
+        limits:
+          memory: 100M  # Уменьшить лимит
+          cpus: "0.3"
 
   hos-service-dev:
     container_name: hos-service-dev
@@ -39,6 +47,11 @@ services:
       - ./hos-service/.env.dev
     networks:
       - mynet-dev
+    deploy:
+      resources:
+        limits:
+          memory: 100M  # Уменьшить лимит
+          cpus: "0.3"
 
   animal-service-dev:
     container_name: animal-service-dev
@@ -57,6 +70,11 @@ services:
       - ./animal-service/.env.dev
     networks:
       - mynet-dev
+    deploy:
+      resources:
+        limits:
+          memory: 100M  # Уменьшить лимит
+          cpus: "0.3"
 
   # ========================
   # Базы данных
@@ -70,10 +88,17 @@ services:
     environment:
       LANG: en_US.utf8
       LC_ALL: en_US.utf8
+      POSTGRES_SHARED_BUFFERS: 64MB
+      POSTGRES_EFFECTIVE_CACHE_SIZE: 128MB
     env_file:
       - ./auth-service/.env.dev
     networks:
       - mynet-dev
+    deploy:
+      resources:
+        limits:
+          memory: 200M
+          cpus: "0.5"
 
   postgres-db-animal-dev:
     container_name: postgres-db-animal-dev
@@ -81,23 +106,35 @@ services:
     environment:
       LANG: en_US.utf8
       LC_ALL: en_US.utf8
+      POSTGRES_SHARED_BUFFERS: 64MB
+      POSTGRES_EFFECTIVE_CACHE_SIZE: 128MB
     env_file:
       - ./animal-service/.env.dev
     networks:
       - mynet-dev
     volumes:
       - animal_pg_data-dev:/var/lib/postgresql/data
+    deploy:
+      resources:
+        limits:
+          memory: 200M
+          cpus: "0.5"
 
   mongo-db-dev:
     container_name: mongo-db-dev
     image: mongo:6.0
     volumes:
       - ./hos-service/db-dev/:/data/db
-    command: mongod --quiet --logpath /dev/null 
+    command: mongod --quiet --logpath /dev/null --nojournal --wiredTigerCacheSizeGB 0.25 --syncdelay 600
     env_file:
       - ./hos-service/.env.dev
     networks:
       - mynet-dev
+    deploy:
+      resources:
+        limits:
+          memory: 300M  # Ограничить кэш
+          cpus: "1.0"
 
 volumes:
   auth_pg_data-dev:
