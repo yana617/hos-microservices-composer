@@ -66,7 +66,7 @@ services:
     container_name: postgres-db-dev
     image: postgres:12.3-alpine
     volumes:
-      - postgres-app-data-dev:/data
+      - auth_pg_data-dev:/var/lib/postgresql/data/auth
     env_file:
       - ./auth-service/.env.dev
     networks:
@@ -80,11 +80,11 @@ services:
     networks:
       - mynet-dev
     volumes:
-      - animal_pg_data-dev:/var/lib/postgresql/data
+      - animal_pg_data-dev:/var/lib/postgresql/data/animals
 
   mongo-db-dev:
     container_name: mongo-db-dev
-    image: mongo
+    image: mongo:6.0
     volumes:
       - ./hos-service/db/:/data/db
     command: mongod --quiet --logpath /dev/null 
@@ -94,7 +94,7 @@ services:
       - mynet-dev
 
 volumes:
-  postgres-app-data-dev:
+  auth_pg_data-dev:
   animal_pg_data-dev:
 networks:
   mynet-dev:
