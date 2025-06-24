@@ -67,6 +67,9 @@ services:
     image: postgres:14
     volumes:
       - auth_pg_data-dev:/var/lib/postgresql/data
+    environment:
+      LANG: en_US.utf8
+      LC_ALL: en_US.utf8
     env_file:
       - ./auth-service/.env.dev
     networks:
@@ -75,6 +78,9 @@ services:
   postgres-db-animal-dev:
     container_name: postgres-db-animal-dev
     image: postgres:14
+    environment:
+      LANG: en_US.utf8
+      LC_ALL: en_US.utf8
     env_file:
       - ./animal-service/.env.dev
     networks:
