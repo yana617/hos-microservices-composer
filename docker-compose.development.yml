@@ -1,4 +1,3 @@
-version: "3.3"
 services:
   # ========================
   # Микросервисы
@@ -10,12 +9,9 @@ services:
     build:
       context: ./auth-service
       dockerfile: dockerfile
-    volumes:
-      - ./auth-service/:/usr/src/auth-service
-      - /usr/src/auth-service/node_modules
     ports:
       - "3081:1081"
-    working_dir: /usr/src/auth-service
+    working_dir: /usr/src/auth-service-dev
     depends_on: 
       - postgres-db-auth-dev
     env_file:
@@ -34,12 +30,9 @@ services:
     build:
       context: ./hos-service
       dockerfile: dockerfile
-    volumes:
-      - ./hos-service:/usr/src/hos-service
-      - /usr/src/hos-service/node_modules
     ports:
       - "3082:1082"
-    working_dir: /usr/src/hos-service
+    working_dir: /usr/src/hos-service-dev
     links:
       - mongo-db-dev
     env_file:
@@ -58,12 +51,9 @@ services:
     build:
       context: ./animal-service
       dockerfile: dockerfile
-    volumes:
-      - ./animal-service:/usr/src/animal-service
-      - /usr/src/animal-service/node_modules
     ports:
       - "3083:1083"
-    working_dir: /usr/src/animal-service
+    working_dir: /usr/src/animal-service-dev
     links:
       - postgres-db-animal-dev
     env_file:
