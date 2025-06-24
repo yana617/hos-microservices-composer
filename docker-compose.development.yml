@@ -16,7 +16,7 @@ services:
       - "3081:1081"
     working_dir: /usr/src/auth-service
     depends_on: 
-      - postgres-db-dev
+      - postgres-db-auth-dev
     env_file:
       - ./auth-service/.env.dev
     networks:
@@ -52,7 +52,7 @@ services:
       - "3083:1083"
     working_dir: /usr/src/animal-service
     links:
-      - postgres-animal-dev
+      - postgres-db-animal-dev
     env_file:
       - ./animal-service/.env.dev
     networks:
@@ -63,7 +63,7 @@ services:
   # ========================
 
   postgres-db-dev:
-    container_name: postgres-db-dev
+    container_name: postgres-db-auth-dev
     image: postgres:12.3-alpine
     volumes:
       - auth_pg_data-dev:/var/lib/postgresql/data/auth
@@ -73,7 +73,7 @@ services:
       - mynet-dev
 
   postgres-animal-dev:
-    container_name: postgres-animal-dev
+    container_name: postgres-db-animal-dev
     image: postgres:14
     env_file:
       - ./animal-service/.env.dev
