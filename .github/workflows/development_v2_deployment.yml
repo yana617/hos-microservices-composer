@@ -15,7 +15,7 @@ jobs:
         username: ${{ secrets.SSH_USERNAME_V2 }}
         key: ${{ secrets.SSH_KEY_V2 }}
         script: |
-          cd ${{ secrets.REPO_DEV_PATH }}
+          cd ${{ secrets.REPO_PATH }}
           docker-compose stop auth-service-dev
           docker-compose stop hos-service-dev
           docker-compose stop animal-service-dev

@@ -62,7 +62,7 @@ services:
   # Базы данных
   # ========================
 
-  postgres-db-dev:
+  postgres-db-auth-dev:
     container_name: postgres-db-auth-dev
     image: postgres:12.3-alpine
     volumes:
@@ -72,7 +72,7 @@ services:
     networks:
       - mynet-dev
 
-  postgres-animal-dev:
+  postgres-db-animal-dev:
     container_name: postgres-db-animal-dev
     image: postgres:14
     env_file:
