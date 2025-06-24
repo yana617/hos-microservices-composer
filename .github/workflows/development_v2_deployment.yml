@@ -16,12 +16,12 @@ jobs:
         key: ${{ secrets.SSH_KEY_V2 }}
         script: |
           cd ${{ secrets.REPO_PATH }}
-          docker-compose stop auth-service-dev
-          docker-compose stop hos-service-dev
-          docker-compose stop animal-service-dev
-          docker-compose rm auth-service-dev
-          docker-compose rm hos-service-dev
-          docker-compose rm animal-service-dev
+          docker compose stop auth-service-dev
+          docker compose stop hos-service-dev
+          docker compose stop animal-service-dev
+          docker compose rm auth-service-dev
+          docker compose rm hos-service-dev
+          docker compose rm animal-service-dev
           git pull origin master
           cd auth-service
           git checkout development
