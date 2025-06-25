@@ -29,7 +29,7 @@ services:
     restart: unless-stopped
     build:
       context: ./hos-service
-      dockerfile: dockerfile
+      dockerfile: dockerfile.dev
     ports:
       - "3082:1082"
     working_dir: /usr/src/hos-service-dev
@@ -50,7 +50,7 @@ services:
     restart: unless-stopped
     build:
       context: ./animal-service
-      dockerfile: dockerfile
+      dockerfile: dockerfile.dev
     ports:
       - "3083:1083"
     working_dir: /usr/src/animal-service-dev

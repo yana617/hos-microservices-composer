@@ -10,5 +10,5 @@ touch docker-compose-home.yaml
 - copy docker-compose.yaml file and change paths to the services
 - run start command
 ```
-docker-compose -f docker-compose-home.yaml up --build
+docker compose -f docker-compose-home.yaml up --build
 ```
