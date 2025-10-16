@@ -58,39 +58,39 @@ services:
     networks:
       - mynet
   
-  # animal-service:
-  #   container_name: animal-service
-  #   build:
-  #     context: ./animal-service
-  #     dockerfile: dockerfile
-  #   volumes:
-  #     - ./animal-service/:/usr/src/animal-service
-  #     - /usr/src/animal-service/node_modules
-  #   ports:
-  #     - "1083:1083"
-  #   working_dir: /usr/src/animal-service
-  #   depends_on: 
-  #     - postgres-db-animal-service
-  #   env_file:
-  #     - ./animal-service/.env
-  #   networks:
-  #     - mynet
+  animal-service:
+    container_name: animal-service
+    build:
+      context: ./animal-service
+      dockerfile: dockerfile
+    volumes:
+      - ./animal-service/:/usr/src/animal-service
+      - /usr/src/animal-service/node_modules
+    ports:
+      - "1083:1083"
+    working_dir: /usr/src/animal-service
+    depends_on: 
+      - postgres-db-animal-service
+    env_file:
+      - ./animal-service/.env
+    networks:
+      - mynet
 
-  # postgres-db-animal-service:
-  #   container_name: postgres-db-animal-service
-  #   image: postgres:14.5
-  #   volumes:
-  #     - animal-service-volume:/data
-  #   ports:
-  #     - "5434:5432"
-  #   env_file:
-  #     - ./animal-service/.env
-  #   networks:
-  #     - mynet
+  postgres-db-animal-service:
+    container_name: postgres-db-animal-service
+    image: postgres:14.5
+    volumes:
+      - animal-service-volume:/data
+    ports:
+      - "5434:5432"
+    env_file:
+      - ./animal-service/.env
+    networks:
+      - mynet
 
 volumes:
   postgres-app-data:
-  # animal-service-volume:
+  animal-service-volume:
 
 networks:
   mynet:
