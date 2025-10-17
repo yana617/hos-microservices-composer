@@ -22,8 +22,6 @@ services:
     image: postgres:12.3-alpine
     volumes:
       - postgres-app-data:/data
-    ports:
-      - "5433:5432"
     env_file:
       - ./auth-service/.env
     networks:
@@ -79,10 +77,13 @@ services:
   postgres-db-animal-service:
     container_name: postgres-db-animal-service
     image: postgres:14
+    environment:
+      LANG: en_US.utf8
+      LC_ALL: en_US.utf8
+      POSTGRES_SHARED_BUFFERS: 64MB
+      POSTGRES_EFFECTIVE_CACHE_SIZE: 128MB
     volumes:
       - animal-service-volume:/data
-    ports:
-      - "5434:5432"
     env_file:
       - ./animal-service/.env
     networks:
